@@ -2,10 +2,9 @@
 #define __UNITTEST_GOLD_PRICE_H__
 
 #include "gtest/gtest.h"
-
 #include <iostream>
 
-class gold_price : public testing::Test
+class gold_price_utest : public testing::Test
 {
     void SetUp() override
     {

@@ -11,15 +11,23 @@
 
 #include "gold_price.h"
 
-class gold_price
-{
-  private:
-    int requests_today;
-    int requests_yesterday;
-    int requests_month;
-    int requests_last_month;
+#include "httplib.h"
 
-  public:
-    int get_request_stat(void);
-    int get_gold_price(void);
-};
+
+int gold_price::get_request_stat(void)
+{
+    httplib::Client cli("http://www.goldapi.io");
+
+    if (auto res = cli.Get("/api/stat"))
+    {
+        std::cout << res->status << std::endl;
+        std::cout << res->get_header_value("Content-Type") << std::endl;
+        std::cout << res->body << std::endl;
+    }
+    else
+    {
+        std::cout << "error code: " << res.error() << std::endl;
+    }
+
+    return 0;
+}

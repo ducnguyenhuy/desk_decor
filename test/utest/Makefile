@@ -1,18 +1,22 @@
-TARGET = unittest_gold_price
-CXX = g++
+CXX       := g++
+CXXFLAGS  := -I../../src                                		\
+			 -I.                                        		\
+			 -I../../thirdparty/googletest/googletest/include 	\
+			 -I../../thirdparty/cpp-httplib             		\
+			 -I../../thirdparty/spdlog/include
 
-CXXFLAGS = -I../../thirdparty/googletest/googletest/include/
-LDFLAGS = -L../../thirdparty/googletest/build/lib -lgmock_main -lgmock -lgtest -lgtest_main -lpthread
+LDFLAGS   := -L../../thirdparty/spdlog/build -lspdlog   		\
+			 -L../../thirdparty/googletest/build/lib -lgmock -lgtest -lpthread
 
-SOURCES = unittest_gold_price.cpp
-HEADERS = unittest_gold_price.h
+SRCS      := unittest_gold_price.cpp                    		\
+			 ../../src/gold_price.cpp
 
-.PHONY: all clean
+TARGET    := unittest_gold_price
 
 all: $(TARGET)
 
-$(TARGET): $(SOURCES) $(HEADERS)
-	$(CXX) -o $(TARGET) $(SOURCES) $(CXXFLAGS) $(LDFLAGS)
+$(TARGET): $(SRCS)
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(LDFLAGS)
 
 clean:
 	rm -f $(TARGET)

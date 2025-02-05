@@ -1,6 +1,19 @@
 #include "unittest_gold_price.h"
 
-TEST_F(gold_price, dummy_test)
+#include "gold_price.h"
+#include "spdlog/spdlog.h"
+
+TEST_F(gold_price_utest, dummy_test)
 {
-    std::cout << "Inside dummy test" << std::endl;
+    gold_price for_test;
+    for_test.get_request_stat();
+
+    spdlog::info("Welcome to spdlog!");
+
+    std::cout << "Inside api get static" << std::endl;
+}
+
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
